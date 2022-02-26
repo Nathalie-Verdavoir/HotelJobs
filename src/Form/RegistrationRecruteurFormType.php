@@ -46,6 +46,9 @@ class RegistrationRecruteurFormType extends AbstractType
                     ]),
                 ],
             ])
+            ->add('recruteurInfos',RecruteurType::class,[
+                'mapped' => false,
+            ])
         ;
     }
 
