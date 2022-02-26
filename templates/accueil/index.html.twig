@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Accueil{% endblock %}
+  
+   
+{% block header %}
+    <img class ="logo" src="{{ asset('images/logo.png') }}"/> 
+    <h1 class="title">HotelJobs, bonjour {{ app.user ? app.user :  ''}}!</h1> 
+    <div class="admin-buttons">
+    {% if app.user %}
+        {% if "ROLE_SUPER_ADMIN" in app.user.roles %} 
+            <a type="button" class="btn" href="/admin">Admin</a>
+        {% else %}
+            <a type="button" class="btn" href="/admin">Admin</a>
+        {% endif %}
+    {% endif %}
+        <a type="button" class="btn" href="/admin">Admin</a>
+    </div>
+
+    <div class="nav">
+        <a type="button" class="btn" href="/">Accueil</a>
+    {% if app.user and (("ROLE_CANDIDAT" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles)) %}
+        <a type="button" class="btn" href="">Mon profil</a>
+        <a type="button" class="btn" href="">Annonces</a>
+    {% elseif app.user and (("ROLE_RECRUTEUR" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles))  %}
+        <a type="button" class="btn" href="">Mon profil</a>
+        <a type="button" class="btn" href="">Annonces</a>
+    {% endif %}  
+    </div>
+    {% block main %}
+   <br>
+    <div class="fond-gris centre announcement"> 
+    <div> 
+     {% if app.user %}
+        Avez-<em class="yellow">v</em>ous le dr<em class="yellow">o</em>it d'en connaî<em class="yellow">tre</em> ?   
+        « Il y en a certains à la boîte qui persistent à penser que ton bilan est globale<em class="yellow">m</em>ent posit<em class="yellow">i</em>f. T'en pen<em class="yellow">s</em>e<em class="yellow">s</em> quo<em class="yellow">i</em> ? Faudrait quand même d'ab<em class="yellow">o</em>rd évaluer le champ de tout ce que t'as compromis. Ce que t'as livré à la CIA, ce que t'as livré aux Russes. Je <em class="yellow">n</em>e te fais pas l'affront <em class="yellow">d</em>e penser que tu a<em class="yellow">u</em>rais pu collaborer avec Daech » 
+        « C'est sorti dans les <em class="yellow">jour</em>naux parce que c'<em class="yellow">est</em> faux. S<em class="yellow">i c</em>'éta<em class="yellow">i</em>t vrai, crois-moi, personne n'en aurait rien su. »   
+     {% else %}
+        Avez-vous le droit d'en connaître ?   
+        « Il y en a certains à la boîte qui persistent à penser que ton bilan est globalement positif. T'en penses quoi ? Faudrait quand même d'abord évaluer le champ de tout ce que t'as compromis. Ce que t'as livré à la CIA, ce que t'as livré aux Russes. Je ne te fais pas l'affront de penser que tu aurais pu collaborer avec Daech » 
+        « C'est sorti dans les journaux parce que c'est faux. Si c'était vrai, crois-moi, personne n'en aurait rien su. »   
+     {% endif %} 
+     </div>
+    </div>
+     
+    {% endblock %}
+{% endblock %}

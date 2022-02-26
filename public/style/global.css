@@ -1,0 +1,103 @@
+@import url('https://fonts.googleapis.com/css2?family=Poiret+One&display=swap');
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: rgb(145, 145, 148) rgba(0, 0, 0, 0);
+  }
+  
+  /* Works on Chrome, Edge, and Safari */
+  *::-webkit-scrollbar {
+    width: 12px;
+  }
+
+  *::-webkit-scrollbar-track {
+    background: rgba(131, 131, 131, 0);
+  }
+  
+  *::-webkit-scrollbar-thumb {
+    background-color: rgb(145, 145, 148);
+    border-radius: 20px;
+    border: 3px solid rgba(0, 0, 0, 0);
+  }
+
+html, 
+body {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+
+body {
+    background-color: #888888;
+    color: rgb(236, 225, 225);
+    font-family: 'Poiret One', cursive;
+}
+
+.logo {
+    display: inline;
+    width: 10vw;
+    margin: 5rem;
+}
+
+h1 {
+    font-size: 6rem;
+    color: black;
+}
+
+h1.title {
+    display: inline;
+}
+
+.nav,
+.fond-gris {
+    width: auto;
+    font-size: 1.5rem;
+    background-color: #272f3b9a;
+    color: rgb(236, 225, 225);
+}
+
+.btn {
+    font-size: 1rem;
+    background-color: #272f3b;
+    border: 0;
+    color: aliceblue;
+    margin: 1rem;
+}
+
+.admin-buttons {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+}
+
+/*validator message */
+
+div > ul > li {
+    color: red;
+    margin-left: 6rem;
+    font-size: 2rem;
+}
+
+/* animations */
+.announcement {
+     overflow: hidden;
+}
+
+.announcement > :first-child {  
+    display: inline-block;
+    padding-left: 100vw;
+    white-space: nowrap;
+    animation: announce 45s infinite linear;
+}
+  
+@keyframes announce {
+    0% {
+      transform: translate3d(0,0,0);      /* position initiale à droite */
+    }
+    100% {
+      transform: translate3d(-100%,0,0);  /* position finale à gauche */
+    }
+}
