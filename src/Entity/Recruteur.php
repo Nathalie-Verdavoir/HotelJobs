@@ -15,7 +15,7 @@ class Recruteur
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(targetEntity: user::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private $userid;
 

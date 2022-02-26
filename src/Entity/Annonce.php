@@ -13,7 +13,7 @@ class Annonce
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\ManyToOne(targetEntity: recruteur::class, inversedBy: 'annonces')]
+    #[ORM\ManyToOne(targetEntity: Recruteur::class, inversedBy: 'annonces')]
     #[ORM\JoinColumn(nullable: false)]
     private $recruteur;
 

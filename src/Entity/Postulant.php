@@ -13,10 +13,10 @@ class Postulant
     #[ORM\Column(type: 'integer')]
     private $id;
 
-    #[ORM\OneToOne(inversedBy: 'postulant', targetEntity: annonce::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'postulant', targetEntity: Annonce::class, cascade: ['persist', 'remove'])]
     private $annonce;
 
-    #[ORM\OneToOne(inversedBy: 'postulant', targetEntity: candidat::class, cascade: ['persist', 'remove'])]
+    #[ORM\OneToOne(inversedBy: 'postulant', targetEntity: Candidat::class, cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
     private $candidat;
 
