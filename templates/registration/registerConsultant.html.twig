@@ -1,0 +1,17 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Créer votre compte{% endblock %}
+
+{% block body %}
+    <h1>Bonjour super admin, tu veux créer un nouveau compte consultant?</h1>
+
+    {{ form_start(registrationConsultantForm) }}
+        {{ form_row(registrationConsultantForm.email) }}
+        {{ form_row(registrationConsultantForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationConsultantForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationConsultantForm) }}
+{% endblock %}

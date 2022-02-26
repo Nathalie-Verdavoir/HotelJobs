@@ -1,0 +1,17 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Créer votre compte{% endblock %}
+
+{% block body %}
+    <h1>Vous souhaitez postuler à nos offres ? Créez votre compte!</h1>
+
+    {{ form_start(registrationCandidatForm) }}
+        {{ form_row(registrationCandidatForm.email) }}
+        {{ form_row(registrationCandidatForm.plainPassword, {
+            label: 'Password'
+        }) }}
+        {{ form_row(registrationCandidatForm.agreeTerms) }}
+
+        <button type="submit" class="btn">Register</button>
+    {{ form_end(registrationCandidatForm) }}
+{% endblock %}
