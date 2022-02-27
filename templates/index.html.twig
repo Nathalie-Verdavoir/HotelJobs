@@ -31,18 +31,19 @@
     {% block body %}
    <br>
     <div class="fond-gris centre announcement"> 
-    <div> 
-     {% if app.user %}
-        Avez-<em class="yellow">v</em>ous le dr<em class="yellow">o</em>it d'en connaî<em class="yellow">tre</em> ?   
-        « Il y en a certains à la boîte qui persistent à penser que ton bilan est globale<em class="yellow">m</em>ent posit<em class="yellow">i</em>f. T'en pen<em class="yellow">s</em>e<em class="yellow">s</em> quo<em class="yellow">i</em> ? Faudrait quand même d'ab<em class="yellow">o</em>rd évaluer le champ de tout ce que t'as compromis. Ce que t'as livré à la CIA, ce que t'as livré aux Russes. Je <em class="yellow">n</em>e te fais pas l'affront <em class="yellow">d</em>e penser que tu a<em class="yellow">u</em>rais pu collaborer avec Daech » 
-        « C'est sorti dans les <em class="yellow">jour</em>naux parce que c'<em class="yellow">est</em> faux. S<em class="yellow">i c</em>'éta<em class="yellow">i</em>t vrai, crois-moi, personne n'en aurait rien su. »   
-     {% else %}
-        Avez-vous le droit d'en connaître ?   
-        « Il y en a certains à la boîte qui persistent à penser que ton bilan est globalement positif. T'en penses quoi ? Faudrait quand même d'abord évaluer le champ de tout ce que t'as compromis. Ce que t'as livré à la CIA, ce que t'as livré aux Russes. Je ne te fais pas l'affront de penser que tu aurais pu collaborer avec Daech » 
-        « C'est sorti dans les journaux parce que c'est faux. Si c'était vrai, crois-moi, personne n'en aurait rien su. »   
-     {% endif %} 
-     </div>
+        <div> 
+            {% if app.user %}
+                Bienvenue sur le site d'annonces dédiées aux métiers de l'hôtellerie et de la restauration.
+            {% else %}
+                Bienvenue sur le site d'annonces dédiées aux métiers de l'hôtellerie et de la restauration.
+            {% endif %} 
+        </div>
     </div>
-     
+    <div class="register"> 
+     Vous n'avez pas encore de compte ? Créez-le !
+    <a type="button" class="btn register" href="{{ path('app_registerRecruteur') }}">Vous êtes recruteur</a>
+    ou
+    <a type="button" class="btn register" href="/">Vous êtes candidat</a>
+    </div>
     {% endblock %}
 {% endblock %}

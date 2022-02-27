@@ -73,6 +73,18 @@ h1.title {
     right: 1rem;
 }
 
+.btn.register {
+  width: 30vw;
+  font-size: 5rem;
+}
+
+div.register {
+  text-align: center;
+  width: 90vw;
+  font-size: 5rem;
+}
+
+
 table {
     font-size: 2rem;
     font-weight: bold;
