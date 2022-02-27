@@ -45,22 +45,20 @@ class RecruteurRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Recruteur[] Returns an array of Recruteur objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Recruteur[] Returns an array of Recruteur objects
+    */
+    
+    public function findActif($value)
     {
         return $this->createQueryBuilder('r')
-            ->andWhere('r.exampleField = :val')
+            ->andWhere('r.actif = :val')
             ->setParameter('val', $value)
             ->orderBy('r.id', 'ASC')
-            ->setMaxResults(10)
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Recruteur

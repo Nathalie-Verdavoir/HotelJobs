@@ -4,7 +4,9 @@
 
 {% block body %}
     <h1>Recruteur index</h1>
-
+    <a type="button" href="{{ path('app_recruteur_index_valid', {'actif': 0}) }}">Recruteurs en attente</a>
+    <a type="button" href="{{ path('app_recruteur_index_valid', {'actif': 1}) }}">Recruteurs validés</a>
+    <a type="button" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
     <table class="table">
         <thead>
             <tr>
@@ -30,11 +32,11 @@
                 <td>{{ recruteur.actif ? 'ok' :'en attente' }}</td>
                 <td>
                     {% if not recruteur.actif %}
-                    <a href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
+                    <a type="button" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
                     {% endif %}
-                    <a href="{{ path('app_recruteur_show', {'id': recruteur.id}) }}">show</a>
+                    <a type="button" href="{{ path('app_recruteur_show', {'id': recruteur.id}) }}">show</a>
                     
-                    <a href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
+                    <a type="button" href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
                 </td>
             </tr>
         {% else %}
@@ -45,5 +47,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_recruteur_new') }}">Create new</a>
+    <a type="button" href="{{ path('app_recruteur_new') }}">Create new</a>
 {% endblock %}

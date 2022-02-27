@@ -14,11 +14,19 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/recruteur')]
 class RecruteurController extends AbstractController
 {
-    #[Route('/', name: 'app_recruteur_index', methods: ['GET'])]
+    #[Route('/all', name: 'app_recruteur_index', methods: ['GET'])]
     public function index(RecruteurRepository $recruteurRepository): Response
     {
         return $this->render('recruteur/index.html.twig', [
             'recruteurs' => $recruteurRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/actif/{actif}', name: 'app_recruteur_index_valid', methods: ['GET'])]
+    public function indexNoValid(RecruteurRepository $recruteurRepository,$actif): Response
+    {
+        return $this->render('recruteur/index.html.twig', [
+            'recruteurs' => $recruteurRepository->findActif($actif),
         ]);
     }
 
