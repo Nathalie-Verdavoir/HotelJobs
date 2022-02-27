@@ -45,22 +45,20 @@ class CandidatRepository extends ServiceEntityRepository
         }
     }
 
-    // /**
-    //  * @return Candidat[] Returns an array of Candidat objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    /**
+    * @return Candidat[] Returns an array of Candidat objects
+    */
+    
+    public function findActif($value)
     {
-        return $this->createQueryBuilder('c')
-            ->andWhere('c.exampleField = :val')
+        return $this->createQueryBuilder('r')
+            ->andWhere('r.actif = :val')
             ->setParameter('val', $value)
-            ->orderBy('c.id', 'ASC')
-            ->setMaxResults(10)
+            ->orderBy('r.id', 'ASC')
             ->getQuery()
             ->getResult()
         ;
     }
-    */
 
     /*
     public function findOneBySomeField($value): ?Candidat
