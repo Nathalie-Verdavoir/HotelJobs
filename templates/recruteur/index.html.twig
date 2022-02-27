@@ -1,0 +1,49 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Recruteurs index{% endblock %}
+
+{% block body %}
+    <h1>Recruteurs index</h1>
+    <a type="button" class="btn" href="{{ path('app_recruteur_index_valid', {'actif': 0}) }}">Recruteurs en attente</a>
+    <a type="button" class="btn" href="{{ path('app_recruteur_index_valid', {'actif': 1}) }}">Recruteurs validés</a>
+    <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nom</th>
+                <th>Prénom</th>
+                <th>Email</th>
+                <th>Entreprise</th>
+                <th>Adresse</th>
+                <th>Validé</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for recruteur in recruteurs %}
+            <tr>
+                <td>{{ recruteur.id }}</td>
+                <td>{{ recruteur.userid.nom }}</td>
+                <td>{{ recruteur.userid.prenom }}</td>
+                <td>{{ recruteur.userid.email }}</td>
+                <td>{{ recruteur.entreprise }}</td>
+                <td>{{ recruteur.adresse }}</td>
+                <td>{{ recruteur.actif ? 'ok' :'en attente' }}</td>
+                <td>
+                    {% if not recruteur.actif %}
+                    <a type="button" class="btn" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
+                    {% endif %}
+                    <a type="button" class="btn" href="{{ path('app_recruteur_show', {'id': recruteur.id}) }}">show</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="4">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a type="button" class="btn" href="{{ path('app_recruteur_new') }}">Create new</a>
+{% endblock %}

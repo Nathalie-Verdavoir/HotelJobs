@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Entity\Recruteur;
 use App\Entity\User;
 use App\Form\RegistrationRecruteurFormType;
 use Doctrine\ORM\EntityManagerInterface;
@@ -29,11 +30,20 @@ class RegistrationRecruteurController extends AbstractController
                     $form->get('plainPassword')->getData()
                 )
             );
-
+            
+            $recruteur = new Recruteur();
+            $recruteur->setUserid($user) ;
+            $recruteur->setEntreprise($form->get('recruteurInfos')->getData()->getEntreprise()) ;
+            $recruteur->setAdresse($form->get('recruteurInfos')->getData()->getAdresse()) ;
+            $recruteur->setActif(false);
+            
+            $entityManager->persist($recruteur);
+            
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
-
+            
+            
             return $this->redirectToRoute('app_accueil');
         }
 

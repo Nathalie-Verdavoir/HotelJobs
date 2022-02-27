@@ -31,7 +31,7 @@ body {
 }
 
 body {
-    background-color: #888888;
+    background-color: #b6b5b5;
     color: rgb(236, 225, 225);
     font-family: 'Poiret One', cursive;
 }
@@ -73,8 +73,12 @@ h1.title {
     right: 1rem;
 }
 
-/*validator message */
+table {
+    font-size: 2rem;
+    font-weight: bold;
+}
 
+/*validator message */
 div > ul > li {
     color: red;
     margin-left: 6rem;

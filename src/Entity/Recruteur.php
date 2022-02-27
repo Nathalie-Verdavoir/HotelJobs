@@ -28,6 +28,9 @@ class Recruteur
     #[ORM\OneToMany(mappedBy: 'recruteur', targetEntity: Annonce::class, orphanRemoval: true)]
     private $annonces;
 
+    #[ORM\Column(type: 'boolean')]
+    private $actif;
+
     public function __construct()
     {
         $this->annonces = new ArrayCollection();
@@ -100,6 +103,18 @@ class Recruteur
                 $annonce->setRecruteur(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }

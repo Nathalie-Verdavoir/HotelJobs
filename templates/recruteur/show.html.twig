@@ -1,0 +1,42 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Recruteur{% endblock %}
+
+{% block body %}
+    <h1>Recruteur</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ recruteur.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ recruteur.userid.nom }}</td>
+            </tr>
+            <tr>
+                <th>Prénom</th>
+                <td>{{ recruteur.userid.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Email</th>
+                <td>{{ recruteur.userid.email }}</td>
+            </tr>
+            <tr>
+                <th>Entreprise</th>
+                <td>{{ recruteur.entreprise }}</td>
+            </tr>
+            <tr>
+                <th>Adresse</th>
+                <td>{{ recruteur.adresse }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_recruteur_index') }}">back to list</a>
+
+    <a href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
+<a href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
+    {{ include('recruteur/_delete_form.html.twig') }}
+{% endblock %}
