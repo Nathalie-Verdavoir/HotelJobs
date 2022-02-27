@@ -23,6 +23,9 @@ class Candidat
     #[ORM\OneToOne(mappedBy: 'candidat', targetEntity: Postulant::class, cascade: ['persist', 'remove'])]
     private $postulant;
 
+    #[ORM\Column(type: 'boolean')]
+    private $actif;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -65,6 +68,18 @@ class Candidat
         }
 
         $this->postulant = $postulant;
+
+        return $this;
+    }
+    
+    public function getActif(): ?bool
+    {
+        return $this->actif;
+    }
+
+    public function setActif(bool $actif): self
+    {
+        $this->actif = $actif;
 
         return $this;
     }
