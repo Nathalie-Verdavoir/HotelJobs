@@ -20,6 +20,7 @@
     <div class="nav">
         <a type="button" class="btn" href="/">Accueil</a>
         <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
+        <a type="button" class="btn" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
     {% if app.user and (("ROLE_CANDIDAT" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles)) %}
         <a type="button" class="btn" href="">Mon profil</a>
         <a type="button" class="btn" href="">Annonces</a>
