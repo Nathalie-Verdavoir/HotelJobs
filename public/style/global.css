@@ -84,7 +84,9 @@ div.register {
   font-size: 5rem;
 }
 
-
+.btn.register.long {
+  width: 90vw;
+}
 table {
     font-size: 2rem;
     font-weight: bold;

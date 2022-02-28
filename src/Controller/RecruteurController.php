@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Recruteur;
+use App\Entity\User;
 use App\Form\RecruteurType;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
@@ -51,6 +52,16 @@ class RecruteurController extends AbstractController
     #[Route('/{id}', name: 'app_recruteur_show', methods: ['GET'])]
     public function show(Recruteur $recruteur): Response
     {
+        return $this->render('recruteur/show.html.twig', [
+            'recruteur' => $recruteur,
+        ]);
+    }
+
+    #[Route('/{user}', name: 'app_recruteur_show_from_user_id', methods: ['GET'])]
+    public function showRecruteur($user, RecruteurRepository $recruteurRepository): Response
+    {dump( $user);
+        $recruteur = $user->getRecruteurId();
+        dump( $recruteur);
         return $this->render('recruteur/show.html.twig', [
             'recruteur' => $recruteur,
         ]);
