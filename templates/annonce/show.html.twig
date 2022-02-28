@@ -1,0 +1,42 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Annonce{% endblock %}
+
+{% block body %}
+    <h1>Annonce</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ annonce.id }}</td>
+            </tr>
+            <tr>
+                <th>Intitule</th>
+                <td>{{ annonce.intitule }}</td>
+            </tr>
+            <tr>
+                <th>Lieu</th>
+                <td>{{ annonce.lieu }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ annonce.description }}</td>
+            </tr>
+            <tr>
+                <th>Visible</th>
+                <td>{{ annonce.visible ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Postulants</th>
+                <td>{{ postulant }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_annonce_index') }}">back to list</a>
+
+    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
+
+    {{ include('annonce/_delete_form.html.twig') }}
+{% endblock %}
