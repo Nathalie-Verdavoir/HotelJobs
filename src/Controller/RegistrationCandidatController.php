@@ -45,7 +45,7 @@ class RegistrationCandidatController extends AbstractController
                 $candidat->setUserid($user) ;
                 $candidat->setCvname($newFilename) ;
                 $candidat->setActif(false);
-                
+                $user->setCandidat($candidat);
                 $entityManager->persist($candidat);
             }
             $entityManager->persist($user);

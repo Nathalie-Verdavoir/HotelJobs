@@ -14,7 +14,6 @@ class Candidat
     private $id;
 
     #[ORM\OneToOne(targetEntity: User::class, cascade: ['persist', 'remove'])]
-    #[ORM\JoinColumn(nullable: false)]
     private $userid;
 
     #[ORM\Column(type: 'string', length: 255)]

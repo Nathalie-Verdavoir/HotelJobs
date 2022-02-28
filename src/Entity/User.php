@@ -32,6 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\Column(type: 'string', length: 45)]
     private $prenom;
 
+    #[ORM\OneToOne(targetEntity: Recruteur::class, cascade: ['persist', 'remove'])]
+    private $recruteur;
+
+    #[ORM\OneToOne(targetEntity: Candidat::class, cascade: ['persist', 'remove'])]
+    private $candidat;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -122,6 +128,35 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     public function setPrenom(string $prenom): self
     {
         $this->prenom = $prenom;
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return $this->prenom;
+    }
+
+    public function getRecruteur(): ?Recruteur
+    {
+        return $this->recruteur;
+    }
+
+    public function setRecruteurId(Recruteur $recruteur): self
+    {
+        $this->recruteur = $recruteur;
+
+        return $this;
+    }
+
+    public function getCandidat(): ?Candidat
+    {
+        return $this->candidat;
+    }
+
+    public function setCandidat(?Candidat $candidat): self
+    {
+        $this->candidat = $candidat;
 
         return $this;
     }

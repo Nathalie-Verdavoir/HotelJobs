@@ -10,24 +10,24 @@
     {% if app.user %}
         {% if "ROLE_SUPER_ADMIN" in app.user.roles %} 
             <a type="button" class="btn" href="/admin">Admin</a>
-        {% else %}
-            <a type="button" class="btn" href="/admin">Admin</a>
         {% endif %}
     {% endif %}
-        <a type="button" class="btn" href="/admin">Admin</a>
+     <a type="button" class="btn" href="{{ app.user ? path('logout') : path('login')}}">{{ app.user ? 'Logout' : 'Login' }}</a>
     </div>
 
     <div class="nav">
         <a type="button" class="btn" href="/">Accueil</a>
-        <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
-        <a type="button" class="btn" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
-        <a type="button" class="btn" href="{{ path('app_annonce_index') }}">Toutes les annonces</a>
-    {% if app.user and (("ROLE_CANDIDAT" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles)) %}
-        <a type="button" class="btn" href="">Mon profil</a>
-        <a type="button" class="btn" href="">Annonces</a>
-    {% elseif app.user and (("ROLE_RECRUTEUR" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles))  %}
-        <a type="button" class="btn" href="">Mon profil</a>
-        <a type="button" class="btn" href="">Annonces</a>
+    {% if app.user and "ROLE_CONSULTANT" in app.user.roles %}
+        <a type="button" class="btn register" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
+        <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
+        <a type="button" class="btn register" href="{{ path('app_annonce_index') }}">Toutes les annonces</a>   
+    {% elseif app.user and (("ROLE_CANDIDAT" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles)) %}
+        <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Mon profil</a>
+        <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Annonces</a>
+    {% elseif app.user and "ROLE_RECRUTEUR" in app.user.roles  %}
+    {% set recruteurs = app.user %}
+        <a type="button" class="btn register" href="{{ path('app_recruteur_show_from_user_id', {'user': app.user.getRecruteurId.id}) }}">Mon profil</a>
+        <a type="button" class="btn register" href="{{ path('app_recruteur_index') }}">Annonces</a>
     {% endif %}  
     </div>
     {% block body %}
@@ -35,17 +35,23 @@
     <div class="fond-gris centre announcement"> 
         <div> 
             {% if app.user %}
-                Bienvenue sur le site d'annonces dédiées aux métiers de l'hôtellerie et de la restauration.
+                {{ app.user ? app.user : '' }} Bienvenue  sur le site d'annonces dédiées aux métiers de l'hôtellerie et de la restauration.
             {% else %}
                 Bienvenue sur le site d'annonces dédiées aux métiers de l'hôtellerie et de la restauration.
             {% endif %} 
         </div>
     </div>
+    {% if app.user and "ROLE_SUPER_ADMIN" in app.user.roles %}
+      <a type="button" class="btn register long" href="{{ path('app_registerConsultant') }}">Ajouter un consultant</a>
+     {% endif %} 
+    {% if not app.user %}
     <div class="register"> 
-     Vous n'avez pas encore de compte ? Créez-le !
+    <a type="button" class="btn register" href="{{ path('login')}}">Connexion</a>
+    <br> Vous n'avez pas encore de compte ? Créez-le !
     <a type="button" class="btn register" href="{{ path('app_registerRecruteur') }}">Vous êtes recruteur</a>
     ou
     <a type="button" class="btn register" href="{{ path('app_registerCandidat') }}">Vous êtes candidat</a>
     </div>
+     {% endif %} 
     {% endblock %}
 {% endblock %}

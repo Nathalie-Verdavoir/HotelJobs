@@ -38,7 +38,7 @@ class RegistrationRecruteurController extends AbstractController
             $recruteur->setActif(false);
             
             $entityManager->persist($recruteur);
-            
+            $user->setRecruteurId($recruteur);
             $entityManager->persist($user);
             $entityManager->flush();
             // do anything else you need here, like send an email
