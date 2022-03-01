@@ -6,6 +6,7 @@ use App\Entity\Candidat;
 use App\Entity\Postulant;
 use App\Form\PostulantType;
 use App\Repository\PostulantRepository;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -22,10 +23,10 @@ class PostulantController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/candidat/{candidat}', name: 'app_postulant_candidat', methods: ['GET'])]
-    public function indexCandidat(PostulantRepository $postulantRepository, Candidat $candidat): Response
+    public function indexCandidat(Candidat $candidat): Response
     {
-        dump($candidat->getPostulants()->getValues());
         return $this->render('postulant/index.html.twig', [
             'postulants' => $candidat->getPostulants()->getValues(),
         ]);

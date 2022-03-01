@@ -99,4 +99,9 @@ class Candidat
 
         return $this;
     }
+
+    public function __toString()
+    {
+        return '' .$this->getUserid()->getNom() . " " . $this->getUserid()->getPrenom() . '';
+    }
 }
