@@ -25,9 +25,7 @@
         <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Mon profil</a>
         <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Annonces</a>
     {% elseif app.user and "ROLE_RECRUTEUR" in app.user.roles  %}
-    {% set recruteurs = app.user %}
-        <a type="button" class="btn register" href="{{ path('app_recruteur_show_from_user_id', {'user': app.user.getRecruteurId.id}) }}">Mon profil</a>
-        <a type="button" class="btn register" href="{{ path('app_recruteur_index') }}">Annonces</a>
+        <a type="button" class="btn register" href="{{ path('app_recruteur_show_from_user_id', {'user': app.user.getRecruteur.id}) }}">Mon profil</a>
     {% endif %}  
     </div>
     {% block body %}
@@ -44,6 +42,12 @@
     {% if app.user and "ROLE_SUPER_ADMIN" in app.user.roles %}
       <a type="button" class="btn register long" href="{{ path('app_registerConsultant') }}">Ajouter un consultant</a>
      {% endif %} 
+
+    {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
+      <a type="button" class="btn register long" href="{{ path('app_annonce_index') }}">Voir mes annonces</a>
+      
+      <a type="button" class="btn register long" href="{{ path('app_annonce_new', {'recruteur': app.user.getRecruteur.id}) }}">Ajouter une annonce</a>
+    {% endif %} 
     {% if not app.user %}
     <div class="register"> 
     <a type="button" class="btn register" href="{{ path('login')}}">Connexion</a>

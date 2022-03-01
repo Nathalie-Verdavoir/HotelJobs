@@ -1,9 +1,9 @@
 {% extends 'index.html.twig' %}
 
-{% block title %}Candidat index{% endblock %}
+{% block title %}Candidats{% endblock %}
 
 {% block body %}
-    <h1>Candidat index</h1>
+    <h1>Candidats</h1>
     <a type="button" class="btn" href="{{ path('app_candidat_index_valid', {'actif': 0}) }}">Candidats en attente</a>
     <a type="button" class="btn" href="{{ path('app_candidat_index_valid', {'actif': 1}) }}">Candidats validés</a>
     <a type="button" class="btn" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
@@ -29,10 +29,8 @@
                 <td>{{ candidat.cvname }}</td>
                 <td>{{ candidat.actif ? 'ok' :'en attente' }}</td>
                 <td>
-                    {% if not candidat.actif %}
-                    <a type="button" class="btn" href="{{ path('app_candidat_makeActive', {'id': candidat.id}) }}">valider</a>
-                    {% endif %}
-                    <a type="button" class="btn" href="{{ path('app_candidat_show', {'id': candidat.id}) }}">show</a>
+                    <a type="button" class="btn" href="{{ path('app_candidat_show', {'id': candidat.id}) }}">Voir</a>
+                    <a type="button" class="btn" href="{{ path('app_candidat_makeActive', {'id': candidat.id, 'actif': (candidat.actif ? 0 : 1)}) }}">{{ candidat.actif ? "Rendre Inactif" : "Rendre Actif" }}</a>
                 </td>
             </tr>
         {% else %}
@@ -43,5 +41,5 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_candidat_new') }}">Create new</a>
+    <a type="button" class="btn" href="{{ path('app_candidat_new') }}">Create new</a>
 {% endblock %}

@@ -34,9 +34,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_recruteur_index') }}">back to list</a>
+    <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">back to list</a>
 
-    <a href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
-<a href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
+    <a type="button" class="btn" href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
+<a type="button" class="btn" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
     {{ include('recruteur/_delete_form.html.twig') }}
 {% endblock %}

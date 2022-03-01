@@ -84,11 +84,11 @@ class RecruteurController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/makeActive', name: 'app_recruteur_makeActive', methods: ['GET', 'POST'])]
-    public function makeActive(Recruteur $recruteur, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
+    #[Route('/{id}/makeActive/{actif}', name: 'app_recruteur_makeActive', methods: ['GET', 'POST'])]
+    public function makeActive(Recruteur $recruteur, $actif, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
     {   $user=$recruteur->getUserid();
         $user->setRoles(["ROLE_RECRUTEUR"]);
-        $recruteur->setActif(true);
+        $recruteur->setActif($actif);
         $recruteurRepository->add($recruteur);
         $entityManager->persist($user);
         return $this->redirectToRoute('app_recruteur_index', [], Response::HTTP_SEE_OTHER);

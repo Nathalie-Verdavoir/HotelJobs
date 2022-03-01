@@ -22,9 +22,9 @@
         </tbody>
     </table>
 
-    <a href="{{ path('app_candidat_index') }}">back to list</a>
+    <a type="button" class="btn" href="{{ path('app_candidat_index') }}">back to list</a>
 
-    <a href="{{ path('app_candidat_edit', {'id': candidat.id}) }}">edit</a>
+    <a type="button" class="btn" href="{{ path('app_candidat_edit', {'id': candidat.id}) }}">edit</a>
 
     {{ include('candidat/_delete_form.html.twig') }}
 {% endblock %}

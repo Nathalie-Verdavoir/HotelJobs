@@ -13,7 +13,7 @@
                 <th>Lieu</th>
                 <th>Description</th>
                 <th>Visible</th>
-                <th>actions</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -24,9 +24,14 @@
                 <td>{{ annonce.lieu }}</td>
                 <td>{{ annonce.description }}</td>
                 <td>{{ annonce.visible ? 'Yes' : 'No' }}</td>
-                <td>
-                    <a href="{{ path('app_annonce_show', {'id': annonce.id}) }}">show</a>
-                    <a href="{{ path('app_annonce_edit', {'id': annonce.id}) }}">edit</a>
+                <td> 
+                    {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
+                        <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
+                        <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">edit</a>
+                    {% elseif app.user and "ROLE_CONSULTANT" in app.user.roles %}
+                        <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': annonce.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
+                        <a type="button" class="btn" href="{{ path('app_annonce_makeVisible', { 'id': annonce.id, 'visible': (annonce.visible ? 0 : 1)}) }}">{{ annonce.visible ? 'Retirer' : 'Valider' }}</a>
+                    {% endif %}
                 </td>
             </tr>
         {% else %}
@@ -36,6 +41,7 @@
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_annonce_new') }}">Create new</a>
+    {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
+    <a type="button" class="btn" href="{{ path('app_annonce_new', {'recruteur': app.user.getRecruteur.id}) }}">Create new</a>
+    {% endif %}
 {% endblock %}
