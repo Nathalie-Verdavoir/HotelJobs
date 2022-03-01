@@ -16,13 +16,13 @@ class AnnonceType extends AbstractType
     {
         $builder
             ->add('intitule', TextType::class, [
-                'data' => 'Serveur, cuisinier, concierge,...',
+                
             ])
             ->add('lieu', TextType::class, [
-                'data' => 'Ville, Region,...',
+                
             ])
             ->add('description', TextareaType::class, [
-                'data' => 'Salaire annuel, Nombre d\'heure, Type de contrat....',
+                
             ])
         ;
     }

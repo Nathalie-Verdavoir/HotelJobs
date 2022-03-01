@@ -73,11 +73,12 @@ class CandidatController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/makeActive', name: 'app_candidat_makeActive', methods: ['GET', 'POST'])]
-    public function makeActive(Candidat $candidat, CandidatRepository $candidatRepository, EntityManagerInterface $entityManager): Response
-    {   $user=$candidat->getUserid();
+    #[Route('/{id}/makeActive/{actif}', name: 'app_candidat_makeActive', methods: ['GET', 'POST'])]
+    public function makeActive(Candidat $candidat, $actif, CandidatRepository $candidatRepository, EntityManagerInterface $entityManager): Response
+    {   
+        $user=$candidat->getUserid();
         $user->setRoles(["ROLE_CANDIDAT"]);
-        $candidat->setActif(true);
+        $candidat->setActif($actif);
         $candidatRepository->add($candidat);
         $entityManager->persist($user);
         return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);

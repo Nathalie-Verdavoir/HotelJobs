@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Recruteur;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -21,16 +22,20 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/new', name: 'app_annonce_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, AnnonceRepository $annonceRepository): Response
+    #[Route('/new/{recruteur}', name: 'app_annonce_new', methods: ['GET', 'POST'])]
+    public function new(Request $request, AnnonceRepository $annonceRepository,Recruteur $recruteur): Response
     {
         $annonce = new Annonce();
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $annonce->setVisible(false);
+            $annonce->setRecruteur($recruteur);
             $annonceRepository->add($annonce);
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_annonce_index', [
+                'recruteur' => $recruteur,
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/new.html.twig', [
@@ -39,7 +44,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}', name: 'app_annonce_show', methods: ['GET'])]
+    #[Route('/{recruteur}/{id}', name: 'app_annonce_show', methods: ['GET'])]
     public function show(Annonce $annonce): Response
     {
         return $this->render('annonce/show.html.twig', [
@@ -47,7 +52,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
+    #[Route('/{recruteur}/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
@@ -71,6 +76,14 @@ class AnnonceController extends AbstractController
             $annonceRepository->remove($annonce);
         }
 
+        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/makeVisible/{visible}', name: 'app_annonce_makeVisible', methods: ['GET', 'POST'])]
+    public function makeActive(Annonce $annonce, $visible, AnnonceRepository $annonceRepository): Response
+    {
+        $annonce->setVisible($visible);
+        $annonceRepository->add($annonce);
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 }

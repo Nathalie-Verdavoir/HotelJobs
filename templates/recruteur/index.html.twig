@@ -1,9 +1,9 @@
 {% extends 'index.html.twig' %}
 
-{% block title %}Recruteurs index{% endblock %}
+{% block title %}Recruteurs{% endblock %}
 
 {% block body %}
-    <h1>Recruteurs index</h1>
+    <h1>Recruteurs</h1>
     <a type="button" class="btn" href="{{ path('app_recruteur_index_valid', {'actif': 0}) }}">Recruteurs en attente</a>
     <a type="button" class="btn" href="{{ path('app_recruteur_index_valid', {'actif': 1}) }}">Recruteurs validés</a>
     <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
@@ -31,10 +31,8 @@
                 <td>{{ recruteur.adresse }}</td>
                 <td>{{ recruteur.actif ? 'ok' :'en attente' }}</td>
                 <td>
-                    {% if not recruteur.actif %}
-                    <a type="button" class="btn" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id}) }}">valider</a>
-                    {% endif %}
-                    <a type="button" class="btn" href="{{ path('app_recruteur_show', {'id': recruteur.id}) }}">show</a>
+                    <a type="button" class="btn" href="{{ path('app_recruteur_show', {'id': recruteur.id}) }}">Voir</a>
+                    <a type="button" class="btn" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id, 'actif': recruteur.actif ? 0 : 1}) }}">{{ recruteur.actif ? "Rendre Inactif" : "Rendre Actif" }}</a>
                 </td>
             </tr>
         {% else %}

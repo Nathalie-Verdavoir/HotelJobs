@@ -7,7 +7,7 @@
 
     {{ include('recruteur/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_recruteur_index') }}">back to list</a>
+    <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">back to list</a>
 
     {{ include('recruteur/_delete_form.html.twig') }}
 {% endblock %}
