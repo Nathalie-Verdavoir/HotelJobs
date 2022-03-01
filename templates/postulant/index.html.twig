@@ -1,0 +1,40 @@
+{% extends 'index.html.twig' %}
+
+{% block title %}Vos annonces{% endblock %}
+
+{% block body %}
+    <h1>Vos annonces</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Recruteur</th>
+                <th>Intitulé</th>
+                <th>Lieu</th>
+                <th>Description</th>
+                <th>Valide</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for postulant in postulants %}
+            <tr>
+                <td>{{ postulant.id }}</td>
+                <td>{{ postulant.getAnnonce[0].getRecruteur.getEntreprise }}</td>
+                <td>{{ postulant.getAnnonce[0].intitule }}</td>
+                <td>{{ postulant.getAnnonce[0].lieu }}</td>
+                <td>{{ postulant.getAnnonce[0].description }}</td>
+                <td>{{ postulant.valide ? 'Transmis' : 'En attente' }}</td>
+                <td>
+                    <a type="button" class="btn" href="{{ path('app_annonce_show_candidat', {'id': postulant.getAnnonce[0].id}) }}">Voir</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="3">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

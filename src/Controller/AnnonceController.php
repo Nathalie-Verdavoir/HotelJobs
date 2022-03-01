@@ -63,6 +63,14 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Route('/{id}', name: 'app_annonce_show_candidat', methods: ['GET'])]
+    public function showAnnonceToCandidat(Annonce $annonce): Response
+    {
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce,
+        ]);
+    }
+
     #[Route('/{recruteur}/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
@@ -102,8 +110,8 @@ class AnnonceController extends AbstractController
     public function apply(Annonce $annonce,Candidat $candidat, EntityManagerInterface $entityManager): Response
     {
         $postulant = new Postulant;
-        $postulant->setAnnonce($annonce);
-        $postulant->setCandidat($candidat);
+        $postulant->addAnnonce($annonce);
+        $postulant->addCandidat($candidat);
         $postulant->setValide(false);
         $entityManager->persist($postulant);
         

@@ -27,16 +27,28 @@
                 <th>Visible</th>
                 <td>{{ annonce.visible ? 'Yes' : 'No' }}</td>
             </tr>
+            {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
             <tr>
                 <th>Postulants</th>
-                <td>{{ annonce.postulant }}</td>
+                <td>
+                {% for postulant in annonce.postulants %}
+                {% if postulant.valide %}
+                {% for candidat in postulant.candidat %}
+                <a type="button" class="btn" href="{{ path('app_candidat_show', {'id': candidat.id}) }}">
+                {{ candidat }}
+                </a>
+                {% endfor %}
+                {% endif %}
+                {% endfor %}
+                </td>
             </tr>
+            {% endif %}
         </tbody>
     </table>
 {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
     <a type="button" class="btn" href="{{ path('app_annonce_index') }}">back to list</a>
-
     <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">edit</a>
-{% endif  %}
     {{ include('annonce/_delete_form.html.twig') }}
+{% endif  %}
+    
 {% endblock %}

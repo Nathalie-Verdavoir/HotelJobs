@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\CandidatRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CandidatRepository::class)]
@@ -19,11 +21,16 @@ class Candidat
     #[ORM\Column(type: 'string', length: 255)]
     private $cvname;
 
-    #[ORM\OneToOne(mappedBy: 'candidat', targetEntity: Postulant::class, cascade: ['persist', 'remove'])]
-    private $postulant;
-
     #[ORM\Column(type: 'boolean')]
     private $actif;
+
+    #[ORM\ManyToMany(targetEntity: Postulant::class, mappedBy: 'candidat')]
+    private $postulants;
+
+    public function __construct()
+    {
+        $this->postulants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -53,23 +60,6 @@ class Candidat
 
         return $this;
     }
-
-    public function getPostulant(): ?Postulant
-    {
-        return $this->postulant;
-    }
-
-    public function setPostulant(Postulant $postulant): self
-    {
-        // set the owning side of the relation if necessary
-        if ($postulant->getCandidat() !== $this) {
-            $postulant->setCandidat($this);
-        }
-
-        $this->postulant = $postulant;
-
-        return $this;
-    }
     
     public function getActif(): ?bool
     {
@@ -81,5 +71,37 @@ class Candidat
         $this->actif = $actif;
 
         return $this;
+    }
+
+    /**
+     * @return Collection<int, Postulant>
+     */
+    public function getPostulants(): Collection
+    {
+        return $this->postulants;
+    }
+
+    public function addPostulant(Postulant $postulant): self
+    {
+        if (!$this->postulants->contains($postulant)) {
+            $this->postulants[] = $postulant;
+            $postulant->addCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function removePostulant(Postulant $postulant): self
+    {
+        if ($this->postulants->removeElement($postulant)) {
+            $postulant->removeCandidat($this);
+        }
+
+        return $this;
+    }
+
+    public function __toString()
+    {
+        return '' .$this->getUserid()->getNom() . " " . $this->getUserid()->getPrenom() . '';
     }
 }
