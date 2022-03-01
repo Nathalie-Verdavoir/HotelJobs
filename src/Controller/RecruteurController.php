@@ -58,10 +58,9 @@ class RecruteurController extends AbstractController
     }
 
     #[Route('/{user}', name: 'app_recruteur_show_from_user_id', methods: ['GET'])]
-    public function showRecruteur($user, RecruteurRepository $recruteurRepository): Response
-    {dump( $user);
+    public function showRecruteur($user): Response
+    {
         $recruteur = $user->getRecruteurId();
-        dump( $recruteur);
         return $this->render('recruteur/show.html.twig', [
             'recruteur' => $recruteur,
         ]);
@@ -86,11 +85,13 @@ class RecruteurController extends AbstractController
 
     #[Route('/{id}/makeActive/{actif}', name: 'app_recruteur_makeActive', methods: ['GET', 'POST'])]
     public function makeActive(Recruteur $recruteur, $actif, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
-    {   $user=$recruteur->getUserid();
+    {   
+        $user=$recruteur->getUserid();
         $user->setRoles(["ROLE_RECRUTEUR"]);
         $recruteur->setActif($actif);
         $recruteurRepository->add($recruteur);
         $entityManager->persist($user);
+        $entityManager->flush();
         return $this->redirectToRoute('app_recruteur_index', [], Response::HTTP_SEE_OTHER);
     }
 
