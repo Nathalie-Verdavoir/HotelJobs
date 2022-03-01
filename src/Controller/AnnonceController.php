@@ -102,8 +102,8 @@ class AnnonceController extends AbstractController
     public function apply(Annonce $annonce,Candidat $candidat, EntityManagerInterface $entityManager): Response
     {
         $postulant = new Postulant;
-        $postulant->setAnnonce($annonce);
-        $postulant->setCandidat($candidat);
+        $postulant->addAnnonce($annonce);
+        $postulant->addCandidat($candidat);
         $postulant->setValide(false);
         $entityManager->persist($postulant);
         

@@ -3,6 +3,8 @@
 namespace App\Entity;
 
 use App\Repository\AnnonceRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: AnnonceRepository::class)]
@@ -29,8 +31,13 @@ class Annonce
     #[ORM\Column(type: 'boolean')]
     private $visible;
 
-    #[ORM\OneToOne(mappedBy: 'annonce', targetEntity: Postulant::class, cascade: ['persist', 'remove'])]
-    private $postulant;
+    #[ORM\ManyToMany(targetEntity: Postulant::class, mappedBy: 'annonce')]
+    private $postulants;
+
+    public function __construct()
+    {
+        $this->postulants = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -97,24 +104,29 @@ class Annonce
         return $this;
     }
 
-    public function getPostulant(): ?Postulant
+    /**
+     * @return Collection<int, Postulant>
+     */
+    public function getPostulants(): Collection
     {
-        return $this->postulant;
+        return $this->postulants;
     }
 
-    public function setPostulant(?Postulant $postulant): self
+    public function addPostulant(Postulant $postulant): self
     {
-        // unset the owning side of the relation if necessary
-        if ($postulant === null && $this->postulant !== null) {
-            $this->postulant->setAnnonce(null);
+        if (!$this->postulants->contains($postulant)) {
+            $this->postulants[] = $postulant;
+            $postulant->addAnnonce($this);
         }
 
-        // set the owning side of the relation if necessary
-        if ($postulant !== null && $postulant->getAnnonce() !== $this) {
-            $postulant->setAnnonce($this);
-        }
+        return $this;
+    }
 
-        $this->postulant = $postulant;
+    public function removePostulant(Postulant $postulant): self
+    {
+        if ($this->postulants->removeElement($postulant)) {
+            $postulant->removeAnnonce($this);
+        }
 
         return $this;
     }
