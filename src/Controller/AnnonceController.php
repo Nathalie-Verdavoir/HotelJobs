@@ -3,9 +3,12 @@
 namespace App\Controller;
 
 use App\Entity\Annonce;
+use App\Entity\Candidat;
+use App\Entity\Postulant;
 use App\Entity\Recruteur;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -19,6 +22,14 @@ class AnnonceController extends AbstractController
     {
         return $this->render('annonce/index.html.twig', [
             'annonces' => $annonceRepository->findAll(),
+        ]);
+    }
+
+    #[Route('/visible', name: 'app_annonce_index_visible', methods: ['GET'])]
+    public function indexVisible(AnnonceRepository $annonceRepository): Response
+    {
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonceRepository->findByVisible(1),
         ]);
     }
 
@@ -84,6 +95,19 @@ class AnnonceController extends AbstractController
     {
         $annonce->setVisible($visible);
         $annonceRepository->add($annonce);
+        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+    }
+
+    #[Route('/{id}/apply/{candidat}', name: 'app_annonce_apply', methods: ['GET', 'POST'])]
+    public function apply(Annonce $annonce,Candidat $candidat, EntityManagerInterface $entityManager): Response
+    {
+        $postulant = new Postulant;
+        $postulant->setAnnonce($annonce);
+        $postulant->setCandidat($candidat);
+        $postulant->setValide(false);
+        $entityManager->persist($postulant);
+        
+        $entityManager->flush();
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 }

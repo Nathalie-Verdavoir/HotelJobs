@@ -93,4 +93,13 @@ class CandidatController extends AbstractController
 
         return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    #[Route('/{user}', name: 'app_candidat_show_from_user_id', methods: ['GET'])]
+    public function showCandidat($user): Response
+    {
+        $candidat = $user->getCandidatId();
+        return $this->render('candidat/show.html.twig', [
+            'candidat' => $candidat,
+        ]);
+    }
 }

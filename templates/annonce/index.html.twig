@@ -28,6 +28,8 @@
                     {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
                         <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
                         <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">edit</a>
+                    {% elseif app.user and "ROLE_CANDIDAT" in app.user.roles %}
+                        <a type="button" class="btn" href="{{ path('app_annonce_apply', {'candidat': app.user.getCandidat.id,'id': annonce.id}) }}">Postuler</a>
                     {% elseif app.user and "ROLE_CONSULTANT" in app.user.roles %}
                         <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': annonce.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
                         <a type="button" class="btn" href="{{ path('app_annonce_makeVisible', { 'id': annonce.id, 'visible': (annonce.visible ? 0 : 1)}) }}">{{ annonce.visible ? 'Retirer' : 'Valider' }}</a>
