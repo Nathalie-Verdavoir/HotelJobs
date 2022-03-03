@@ -32,8 +32,9 @@ body {
 
 body {
     background-color: #b6b5b5;
-    color: rgb(236, 225, 225);
+    color: #024141;
     font-family: 'Poiret One', cursive;
+    font-weight: bolder;
 }
 
 .logo {
@@ -56,15 +57,23 @@ h1.title {
     width: auto;
     font-size: 1.5rem;
     background-color: #272f3b9a;
-    color: rgb(236, 225, 225);
+    color: #7afffe;
 }
 
 .btn {
-    font-size: 1rem;
+    font-size: 2rem;
     background-color: #272f3b;
     border: 0;
-    color: aliceblue;
+    color: #7afffe;
     margin: 1rem;
+}
+
+.btn:hover {
+  font-size: 2rem;
+  background-color: #0b0e11;
+  border: 0;
+  color: #e7f5f5;
+  margin: 1rem;
 }
 
 .admin-buttons {
@@ -74,8 +83,8 @@ h1.title {
 }
 
 .btn.register {
-  width: 30vw;
-  font-size: 5rem;
+  padding-inline: 2rem;
+  font-size: 3.5rem;
 }
 
 div.register {
@@ -92,6 +101,11 @@ table {
     font-weight: bold;
 }
 
+form,
+input {
+  font-size: 2rem;
+  margin-left: 1rem;
+}
 /*validator message */
 div > ul > li {
     color: red;

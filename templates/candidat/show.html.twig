@@ -24,12 +24,12 @@
                 <td>{{ candidat.userid.email }}</td>
             </tr>
             <tr>
-                <th>Cvname</th>
-                <td>{{ candidat.cvname }}</td>
+                <th>CV</th>
+                <td><a type="button" class="btn" href="{{ asset('/uploads/article_image/')  }}{{ candidat.cvName}}" download="{{ candidat.cvName }}">Télécharger son CV</a></td>
             </tr>
             <tr>
                 <th>Actif</th>
-                <td>{{ candidat.actif ? 'Yes' : 'No' }}</td>
+                <td>{{ candidat.actif ? 'Oui' : 'Non' }}</td>
             </tr>
         </tbody>
     </table>
