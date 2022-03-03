@@ -17,13 +17,13 @@
 
     <div class="nav">
         <a type="button" class="btn" href="/">Accueil</a>
-    {% if app.user and "ROLE_CONSULTANT" in app.user.roles %}
+    {% if is_granted("ROLE_CONSULTANT") %}
         <a type="button" class="btn register" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
         <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
         <a type="button" class="btn register" href="{{ path('app_annonce_index') }}">Toutes les annonces</a>   
-    {% elseif app.user and (("ROLE_CANDIDAT" in app.user.roles) or ("ROLE_CONSULTANT" in app.user.roles)) %}
+    {% elseif is_granted("ROLE_CANDIDAT") or is_granted("ROLE_CONSULTANT") %}
         <a type="button" class="btn register" href="{{ path('app_candidat_show_from_user_id', {'user': app.user.getCandidat.id}) }}">Mon profil</a>
-    {% elseif app.user and "ROLE_RECRUTEUR" in app.user.roles  %}
+    {% elseif is_granted("ROLE_RECRUTEUR") %}
         <a type="button" class="btn register" href="{{ path('app_recruteur_show_from_user_id', {'user': app.user.getRecruteur.id}) }}">Mon profil</a>
     {% endif %}  
     </div>
@@ -38,16 +38,16 @@
             {% endif %} 
         </div>
     </div>
-    {% if app.user and "ROLE_SUPER_ADMIN" in app.user.roles %}
+    {% if is_granted("ROLE_SUPER_ADMIN") %}
       <a type="button" class="btn register long" href="{{ path('app_registerConsultant') }}">Ajouter un consultant</a>
      {% endif %} 
 
-    {% if app.user and "ROLE_RECRUTEUR" in app.user.roles %}
+    {% if is_granted("ROLE_RECRUTEUR") %}
       <a type="button" class="btn register long" href="{{ path('app_annonce_index') }}">Voir mes annonces</a>
       <a type="button" class="btn register long" href="{{ path('app_annonce_new', {'recruteur': app.user.getRecruteur.id}) }}">Ajouter une annonce</a>
     {% endif %} 
 
-    {% if app.user and "ROLE_CANDIDAT" in app.user.roles %}
+    {% if is_granted("ROLE_CANDIDAT") %}
       <a type="button" class="btn register long" href="{{ path('app_annonce_index_visible') }}">Voir toutes les annonces</a>
       <a type="button" class="btn register long" href="{{ path('app_postulant_candidat', {'candidat': app.user.getCandidat.id}) }}">Voir mes annonces</a>
     {% endif %} 

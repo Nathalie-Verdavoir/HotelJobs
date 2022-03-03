@@ -9,6 +9,7 @@ use App\Entity\Recruteur;
 use App\Form\AnnonceType;
 use App\Repository\AnnonceRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -55,11 +56,15 @@ class AnnonceController extends AbstractController
         ]);
     }
 
-    #[Route('/{recruteur}/{id}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Annonce $annonce): Response
-    {
+    #[Security("is_granted( 'ROLE_CONSULTANT') or is_granted('ROLE_RECRUTEUR')", statusCode: 404)]
+    #[Route('/candidatsvalides/{recruteur}/{id}', name: 'app_annonce_show', methods: ['GET'])]
+    public function show(Postulant $postulant): Response
+    {/** @var Annonce $annonce */
+        $annonce = $postulant->getAnnonce()[0];
+        dump($annonce);
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
+            'postulant' => $postulant
         ]);
     }
 

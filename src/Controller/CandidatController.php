@@ -6,6 +6,7 @@ use App\Entity\Candidat;
 use App\Form\CandidatType;
 use App\Repository\CandidatRepository;
 use Doctrine\ORM\EntityManagerInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -14,6 +15,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/candidat')]
 class CandidatController extends AbstractController
 {
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/', name: 'app_candidat_index', methods: ['GET'])]
     public function index(CandidatRepository $candidatRepository): Response
     {
@@ -22,6 +24,7 @@ class CandidatController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/actif/{actif}', name: 'app_candidat_index_valid', methods: ['GET'])]
     public function indexNoValid(CandidatRepository $candidatRepository,$actif): Response
     {
@@ -48,6 +51,7 @@ class CandidatController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_candidat_show', methods: ['GET'])]
     public function show(Candidat $candidat): Response
     {

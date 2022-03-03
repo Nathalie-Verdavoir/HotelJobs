@@ -2,8 +2,10 @@
 
 namespace App\Controller;
 
+use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Postulant;
+use App\Entity\Recruteur;
 use App\Form\PostulantType;
 use App\Repository\PostulantRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -55,6 +57,21 @@ class PostulantController extends AbstractController
     {
         return $this->render('postulant/show.html.twig', [
             'postulant' => $postulant,
+        ]);
+    }
+
+    #[Route('/{id}/{valid}', name: 'app_postulant_validation', methods: ['GET'])]
+    public function makeValid(Postulant $postulant,$valid,PostulantRepository $postulantRepository): Response
+    {
+        /** @var Annonce $annonce */
+        $annonce = $postulant->getAnnonce()[0];
+        $postulant->setValide($valid);
+        $postulantRepository->add($postulant);
+        return $this->render('annonce/show.html.twig', [
+            'annonce' => $annonce,
+            'postulant' => $postulant,
+            'recruteur' => $annonce->getRecruteur(),
+            'id' => $annonce->getId(),
         ]);
     }
 
