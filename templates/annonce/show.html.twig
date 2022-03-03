@@ -42,7 +42,7 @@
                             {% if is_granted("ROLE_CONSULTANT") %}
                                 <a type="button" class="btn" href="{{ path('app_postulant_validation', {'id': postulant.id, 'valid' : (postulant.valide ? 0 : 1)}) }}">{{postulant.valide ? 'Invalider le candidat' : 'Valider le candidat'}}</a>
                             {% endif %}
-                            {{ postulant.valide ? 'oui' : 'non'}}
+                            {{ postulant.valide ? 'Candidature validée et envoyée' : 'En attente...'}}
                             <br>
                         {% endfor %}
                     {% endif %}

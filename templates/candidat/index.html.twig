@@ -14,7 +14,7 @@
                 <th>Nom</th>
                 <th>Prénom</th>
                 <th>Email</th>
-                <th>cv</th>
+                <th>CV</th>
                 <th>Validé</th>
                 <th>Actions</th>
             </tr>
@@ -26,7 +26,7 @@
                 <td>{{ candidat.userid.nom }}</td>
                 <td>{{ candidat.userid.prenom }}</td>
                 <td>{{ candidat.userid.email }}</td>
-                <td>{{ candidat.cvname }}</td>
+                <td><a type="button" class="btn" href="{{ asset('/uploads/article_image/')  }}{{ candidat.cvName}}" download="{{ candidat.cvName }}">Télécharger son CV</a></td>
                 <td>{{ candidat.actif ? 'ok' :'en attente' }}</td>
                 <td>
                     <a type="button" class="btn" href="{{ path('app_candidat_show', {'id': candidat.id}) }}">Voir</a>

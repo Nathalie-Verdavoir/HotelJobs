@@ -16,7 +16,7 @@
     </div>
 
     <div class="nav">
-        <a type="button" class="btn" href="/">Accueil</a>
+        <a type="button" class="btn register" href="/">Accueil</a>
     {% if is_granted("ROLE_CONSULTANT") %}
         <a type="button" class="btn register" href="{{ path('app_recruteur_index') }}">Tous les recruteurs</a>
         <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
@@ -43,7 +43,7 @@
      {% endif %} 
 
     {% if is_granted("ROLE_RECRUTEUR") %}
-      <a type="button" class="btn register long" href="{{ path('app_annonce_index') }}">Voir mes annonces</a>
+      <a type="button" class="btn register long" href="{{ path('app_annonce_index_recruteur', {'recruteur': app.user.getRecruteur.id}) }}">Voir mes annonces</a>
       <a type="button" class="btn register long" href="{{ path('app_annonce_new', {'recruteur': app.user.getRecruteur.id}) }}">Ajouter une annonce</a>
     {% endif %} 
 

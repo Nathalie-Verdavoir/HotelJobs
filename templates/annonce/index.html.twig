@@ -26,7 +26,7 @@
                 <td>{{ annonce.intitule }}</td>
                 <td>{{ annonce.lieu }}</td>
                 <td>{{ annonce.description }}</td>
-                <td>{{ annonce.visible ? 'Yes' : 'No' }}</td>
+                <td>{{ annonce.visible ? 'Oui' : 'Non' }}</td>
                 {% if is_granted("ROLE_CONSULTANT") %}
                     <td>{{ annonce.getPostulants|length }}</td>
                 {% endif %}
@@ -35,10 +35,12 @@
                         <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
                         <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">edit</a>
                     {% elseif is_granted("ROLE_CANDIDAT") %}
-                        <a type="button" class="btn" href="{{ path('app_annonce_apply', {'candidat': app.user.getCandidat.id,'id': annonce.id}) }}">Postuler</a>
+                        {% if annonce.checkIfPostulant(annonce,app.user.getCandidat) %}
+                            <a type="button" class="btn" href="{{ path('app_annonce_apply', {'candidat': app.user.getCandidat.id,'id': annonce.id}) }}">Postuler</a>
+                        {% endif %}
                     {% elseif is_granted("ROLE_CONSULTANT") %}
                         <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': annonce.getRecruteur.id,'id': annonce.id}) }}">Voir</a>
-                        <a type="button" class="btn" href="{{ path('app_annonce_makeVisible', { 'id': annonce.id, 'visible': (annonce.visible ? 0 : 1)}) }}">{{ annonce.visible ? 'Retirer' : 'Valider' }}</a>
+                        <a type="button" class="btn" href="{{ path('app_annonce_makeVisible', { 'id': annonce.id, 'visible': (annonce.visible ? 0 : 1)}) }}">{{ annonce.visible ? 'Retirer' : 'Publier' }}</a>
                     {% endif %}
                 </td>
             </tr>
