@@ -5,7 +5,6 @@ namespace App\Controller;
 use App\Entity\Annonce;
 use App\Entity\Candidat;
 use App\Entity\Postulant;
-use App\Entity\Recruteur;
 use App\Form\PostulantType;
 use App\Repository\PostulantRepository;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -17,6 +16,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/postulant')]
 class PostulantController extends AbstractController
 {
+    /*
     #[Route('/', name: 'app_postulant_index', methods: ['GET'])]
     public function index(PostulantRepository $postulantRepository): Response
     {
@@ -24,7 +24,7 @@ class PostulantController extends AbstractController
             'postulants' => $postulantRepository->findAll(),
         ]);
     }
-
+*/
     #[Security("is_granted('ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/candidat/{candidat}', name: 'app_postulant_candidat', methods: ['GET'])]
     public function indexCandidat(Candidat $candidat): Response
@@ -33,7 +33,7 @@ class PostulantController extends AbstractController
             'postulants' => $candidat->getPostulants()->getValues(),
         ]);
     }
-
+/*
     #[Route('/new', name: 'app_postulant_new', methods: ['GET', 'POST'])]
     public function new(Request $request, PostulantRepository $postulantRepository): Response
     {
@@ -59,7 +59,8 @@ class PostulantController extends AbstractController
             'postulant' => $postulant,
         ]);
     }
-
+*/
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/{valid}', name: 'app_postulant_validation', methods: ['GET'])]
     public function makeValid(Postulant $postulant,$valid,PostulantRepository $postulantRepository): Response
     {
@@ -74,7 +75,7 @@ class PostulantController extends AbstractController
             'id' => $annonce->getId(),
         ]);
     }
-
+/*
     #[Route('/{id}/edit', name: 'app_postulant_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Postulant $postulant, PostulantRepository $postulantRepository): Response
     {
@@ -91,7 +92,8 @@ class PostulantController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
+/*
     #[Route('/{id}', name: 'app_postulant_delete', methods: ['POST'])]
     public function delete(Request $request, Postulant $postulant, PostulantRepository $postulantRepository): Response
     {
@@ -101,4 +103,5 @@ class PostulantController extends AbstractController
 
         return $this->redirectToRoute('app_postulant_index', [], Response::HTTP_SEE_OTHER);
     }
+*/
 }

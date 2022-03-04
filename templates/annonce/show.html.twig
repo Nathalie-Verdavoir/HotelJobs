@@ -53,9 +53,11 @@
         </tbody>
     </table>
 {% if is_granted("ROLE_RECRUTEUR") %}
-    <a type="button" class="btn" href="{{ path('app_annonce_index') }}">back to list</a>
-    <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">edit</a>
-    {{ include('annonce/_delete_form.html.twig') }}
+    <a type="button" class="btn" href="{{ path('app_annonce_index_recruteur', {'recruteur': app.user.getRecruteur.id,'annonce': annonce.id}) }}">Retour</a>
+    <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">Modifier</a>
+   
 {% endif  %}
-    
+{% if is_granted("ROLE_CONSULTANT") %}
+     {{ include('annonce/_delete_form.html.twig') }}
+{% endif  %}
 {% endblock %}

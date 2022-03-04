@@ -45,21 +45,36 @@ class AnnonceRepository extends ServiceEntityRepository
         }
     }
     
-/**
-      * @return Annonce[] Returns an array of Annonce objects
-      */
+    /**
+     * @return Annonce[] Returns an array of Annonce objects
+    */
+
+    public function findByRecruteur($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.recruteur = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
     
-      public function findByCandidat($value)
-      {
-          return $this->createQueryBuilder('a')
-              ->andWhere('a.postulant = :val')
-              ->setParameter('val', $value)
-              ->orderBy('a.id', 'ASC')
-              ->setMaxResults(10)
-              ->getQuery()
-              ->getResult()
-          ;
-      }
+    /**
+    * @return Annonce[] Returns an array of Annonce objects
+    */
+    
+    public function findByVisible($value)
+    {
+        return $this->createQueryBuilder('a')
+            ->andWhere('a.visible = :val')
+            ->setParameter('val', $value)
+            ->orderBy('a.id', 'ASC')
+            ->getQuery()
+            ->getResult()
+        ;
+    }
+    
     /*
     public function findOneBySomeField($value): ?Annonce
     {

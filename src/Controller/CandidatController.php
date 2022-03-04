@@ -3,7 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Candidat;
-use App\Form\CandidatType;
 use App\Repository\CandidatRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -32,7 +31,7 @@ class CandidatController extends AbstractController
             'candidats' => $candidatRepository->findActif($actif),
         ]);
     }
-
+/*
     #[Route('/new', name: 'app_candidat_new', methods: ['GET', 'POST'])]
     public function new(Request $request, CandidatRepository $candidatRepository): Response
     {
@@ -50,8 +49,8 @@ class CandidatController extends AbstractController
             'form' => $form,
         ]);
     }
-
-    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
+*/
+    #[Security("is_granted('ROLE_CONSULTANT') or is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_candidat_show', methods: ['GET'])]
     public function show(Candidat $candidat): Response
     {
@@ -59,7 +58,7 @@ class CandidatController extends AbstractController
             'candidat' => $candidat,
         ]);
     }
-
+/*
     #[Route('/{id}/edit', name: 'app_candidat_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Candidat $candidat, CandidatRepository $candidatRepository): Response
     {
@@ -76,7 +75,8 @@ class CandidatController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeActive/{actif}', name: 'app_candidat_makeActive', methods: ['GET', 'POST'])]
     public function makeActive(Candidat $candidat, $actif, CandidatRepository $candidatRepository, EntityManagerInterface $entityManager): Response
     {   
@@ -88,6 +88,7 @@ class CandidatController extends AbstractController
         return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_candidat_delete', methods: ['POST'])]
     public function delete(Request $request, Candidat $candidat, CandidatRepository $candidatRepository): Response
     {
@@ -96,14 +97,5 @@ class CandidatController extends AbstractController
         }
 
         return $this->redirectToRoute('app_candidat_index', [], Response::HTTP_SEE_OTHER);
-    }
-
-    #[Route('/{user}', name: 'app_candidat_show_from_user_id', methods: ['GET'])]
-    public function showCandidat($user): Response
-    {
-        $candidat = $user->getCandidatId();
-        return $this->render('candidat/show.html.twig', [
-            'candidat' => $candidat,
-        ]);
     }
 }
