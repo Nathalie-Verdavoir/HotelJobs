@@ -134,7 +134,7 @@ class Annonce
     public function checkIfPostulant(Annonce $annonce,Candidat $candidat)
     {
         $postulants = $annonce->getPostulants();
-        if(count($postulants)){
+        if(count($postulants) and count($postulants)>0){
             foreach ($postulants as $postulant){
                     return $postulant->getCandidat() == $candidat;
             }
