@@ -18,6 +18,7 @@ use Symfony\Component\Routing\Annotation\Route;
 #[Route('/annonce')]
 class AnnonceController extends AbstractController
 {
+    #[Security("is_granted( 'ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/', name: 'app_annonce_index', methods: ['GET'])]
     public function index(AnnonceRepository $annonceRepository): Response
     {
@@ -26,6 +27,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted( 'ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/visible', name: 'app_annonce_index_visible', methods: ['GET'])]
     public function indexVisible(AnnonceRepository $annonceRepository): Response
     {
@@ -34,6 +36,16 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted( 'ROLE_RECRUTEUR')", statusCode: 404)]
+    #[Route('/recruteur/{recruteur}', name: 'app_annonce_index_recruteur', methods: ['GET'])]
+    public function indexRecruteur(AnnonceRepository $annonceRepository, Recruteur $recruteur): Response
+    {
+        return $this->render('annonce/index.html.twig', [
+            'annonces' => $annonceRepository->findByRecruteur($recruteur),
+        ]);
+    }
+
+    #[Security("is_granted( 'ROLE_RECRUTEUR')", statusCode: 404)]
     #[Route('/new/{recruteur}', name: 'app_annonce_new', methods: ['GET', 'POST'])]
     public function new(Request $request, AnnonceRepository $annonceRepository,Recruteur $recruteur): Response
     {
@@ -45,8 +57,8 @@ class AnnonceController extends AbstractController
             $annonce->setVisible(false);
             $annonce->setRecruteur($recruteur);
             $annonceRepository->add($annonce);
-            return $this->redirectToRoute('app_annonce_index', [
-                'recruteur' => $recruteur,
+            return $this->redirectToRoute('app_annonce_index_recruteur', [
+                'recruteur' => $recruteur->getId(),
             ], Response::HTTP_SEE_OTHER);
         }
 
@@ -57,17 +69,17 @@ class AnnonceController extends AbstractController
     }
 
     #[Security("is_granted( 'ROLE_CONSULTANT') or is_granted('ROLE_RECRUTEUR')", statusCode: 404)]
-    #[Route('/candidatsvalides/{recruteur}/{id}', name: 'app_annonce_show', methods: ['GET'])]
-    public function show(Postulant $postulant): Response
-    {/** @var Annonce $annonce */
-        $annonce = $postulant->getAnnonce()[0];
-        dump($annonce);
+    #[Route('/candidatsvalides/{recruteur}/{annonce}', name: 'app_annonce_show', methods: ['GET'])]
+    public function show(Annonce $annonce, EntityManagerInterface $entityManager): Response
+    {/** @var Postulant $postulant */
+        $postulant = $annonce->getPostulants();
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
             'postulant' => $postulant
         ]);
     }
 
+    #[Security("is_granted( 'ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_annonce_show_candidat', methods: ['GET'])]
     public function showAnnonceToCandidat(Annonce $annonce): Response
     {
@@ -76,15 +88,18 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted( 'ROLE_RECRUTEUR')", statusCode: 404)]
     #[Route('/{recruteur}/{id}/edit', name: 'app_annonce_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
+    public function edit(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository, Recruteur $recruteur): Response
     {
         $form = $this->createForm(AnnonceType::class, $annonce);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
             $annonceRepository->add($annonce);
-            return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+            return $this->redirectToRoute('app_annonce_index_recruteur', [
+                'recruteur' => $recruteur->getId(),
+            ], Response::HTTP_SEE_OTHER);
         }
 
         return $this->renderForm('annonce/edit.html.twig', [
@@ -93,6 +108,7 @@ class AnnonceController extends AbstractController
         ]);
     }
 
+    #[Security("is_granted( 'ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_annonce_delete', methods: ['POST'])]
     public function delete(Request $request, Annonce $annonce, AnnonceRepository $annonceRepository): Response
     {
@@ -103,6 +119,7 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Security("is_granted( 'ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeVisible/{visible}', name: 'app_annonce_makeVisible', methods: ['GET', 'POST'])]
     public function makeActive(Annonce $annonce, $visible, AnnonceRepository $annonceRepository): Response
     {
@@ -111,6 +128,7 @@ class AnnonceController extends AbstractController
         return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Security("is_granted( 'ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/{id}/apply/{candidat}', name: 'app_annonce_apply', methods: ['GET', 'POST'])]
     public function apply(Annonce $annonce,Candidat $candidat, EntityManagerInterface $entityManager): Response
     {
@@ -121,6 +139,6 @@ class AnnonceController extends AbstractController
         $entityManager->persist($postulant);
         
         $entityManager->flush();
-        return $this->redirectToRoute('app_annonce_index', [], Response::HTTP_SEE_OTHER);
+        return $this->redirectToRoute('app_annonce_index_visible', [], Response::HTTP_SEE_OTHER);
     }
 }

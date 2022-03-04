@@ -45,22 +45,6 @@ class PostulantRepository extends ServiceEntityRepository
         }
     }
 
-    /**
-      * @return Postulant[] Returns an array of Postulant objects
-      */
-  
-    public function findByCandidat($value)
-    {
-        return $this->createQueryBuilder('p')
-            ->select('p.getCandidat = :val')
-            ->setParameter('val', $value)
-            ->orderBy('p.id', 'ASC')
-            ->getQuery()
-            ->getResult()
-        ;
-    }
-    
-
     /*
     public function findOneBySomeField($value): ?Postulant
     {

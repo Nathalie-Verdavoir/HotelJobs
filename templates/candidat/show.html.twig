@@ -25,7 +25,7 @@
             </tr>
             <tr>
                 <th>CV</th>
-                <td><a type="button" class="btn" href="{{ asset('/uploads/article_image/')  }}{{ candidat.cvName}}" download="{{ candidat.cvName }}">Télécharger son CV</a></td>
+                <td><a type="button" class="btn" href="{{ asset('/uploads/article_image/')  }}{{ candidat.cvName}}" download="{{ candidat.cvName }}">Télécharger le CV</a></td>
             </tr>
             <tr>
                 <th>Actif</th>
@@ -33,10 +33,4 @@
             </tr>
         </tbody>
     </table>
-
-    <a type="button" class="btn" href="{{ path('app_candidat_index') }}">back to list</a>
-    {% if is_granted("ROLE_CANDIDAT") %}
-        <a type="button" class="btn" href="{{ path('app_candidat_edit', {'id': candidat.id}) }}">edit</a>
-    {% endif %}
-    {{ include('candidat/_delete_form.html.twig') }}
 {% endblock %}

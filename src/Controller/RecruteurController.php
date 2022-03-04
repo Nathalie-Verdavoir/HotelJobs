@@ -3,8 +3,6 @@
 namespace App\Controller;
 
 use App\Entity\Recruteur;
-use App\Entity\User;
-use App\Form\RecruteurType;
 use App\Repository\RecruteurRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -33,7 +31,7 @@ class RecruteurController extends AbstractController
             'recruteurs' => $recruteurRepository->findActif($actif),
         ]);
     }
-
+/*
     #[Route('/new', name: 'app_recruteur_new', methods: ['GET', 'POST'])]
     public function new(Request $request, RecruteurRepository $recruteurRepository): Response
     {
@@ -51,7 +49,8 @@ class RecruteurController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
+    #[Security("is_granted( 'ROLE_CONSULTANT') or is_granted('ROLE_RECRUTEUR') or is_granted('ROLE_CANDIDAT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_recruteur_show', methods: ['GET'])]
     public function show(Recruteur $recruteur): Response
     {
@@ -60,15 +59,7 @@ class RecruteurController extends AbstractController
         ]);
     }
 
-    #[Route('/{user}', name: 'app_recruteur_show_from_user_id', methods: ['GET'])]
-    public function showRecruteur($user): Response
-    {
-        $recruteur = $user->getRecruteurId();
-        return $this->render('recruteur/show.html.twig', [
-            'recruteur' => $recruteur,
-        ]);
-    }
-
+    /*
     #[Route('/{id}/edit', name: 'app_recruteur_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Recruteur $recruteur, RecruteurRepository $recruteurRepository): Response
     {
@@ -85,7 +76,8 @@ class RecruteurController extends AbstractController
             'form' => $form,
         ]);
     }
-
+*/
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeActive/{actif}', name: 'app_recruteur_makeActive', methods: ['GET', 'POST'])]
     public function makeActive(Recruteur $recruteur, $actif, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
     {   
@@ -98,6 +90,7 @@ class RecruteurController extends AbstractController
         return $this->redirectToRoute('app_recruteur_index', [], Response::HTTP_SEE_OTHER);
     }
 
+    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}', name: 'app_recruteur_delete', methods: ['POST'])]
     public function delete(Request $request, Recruteur $recruteur, RecruteurRepository $recruteurRepository): Response
     {

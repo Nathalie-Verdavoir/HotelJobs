@@ -130,4 +130,15 @@ class Annonce
 
         return $this;
     }
+
+    public function checkIfPostulant(Annonce $annonce,Candidat $candidat)
+    {
+        $postulants = $annonce->getPostulants();
+        if(count($postulants)){
+            foreach ($postulants as $postulant){
+                    return $postulant->getCandidat() == $candidat;
+            }
+        }
+        return true;
+    }
 }

@@ -12,7 +12,7 @@
             <a type="button" class="btn" href="/admin">Admin</a>
         {% endif %}
     {% endif %}
-     <a type="button" class="btn" href="{{ app.user ? path('logout') : path('login')}}">{{ app.user ? 'Logout' : 'Login' }}</a>
+     <a type="button" class="btn" href="{{ app.user ? path('logout') : path('login')}}">{{ app.user ? 'Déconnexion' : 'Connexion' }}</a>
     </div>
 
     <div class="nav">
@@ -22,9 +22,9 @@
         <a type="button" class="btn register" href="{{ path('app_candidat_index') }}">Tous les candidats</a>
         <a type="button" class="btn register" href="{{ path('app_annonce_index') }}">Toutes les annonces</a>   
     {% elseif is_granted("ROLE_CANDIDAT") or is_granted("ROLE_CONSULTANT") %}
-        <a type="button" class="btn register" href="{{ path('app_candidat_show_from_user_id', {'user': app.user.getCandidat.id}) }}">Mon profil</a>
+        <a type="button" class="btn register" href="{{ path('app_candidat_show', {'id': app.user.getCandidat.id}) }}">Mon profil</a>
     {% elseif is_granted("ROLE_RECRUTEUR") %}
-        <a type="button" class="btn register" href="{{ path('app_recruteur_show_from_user_id', {'user': app.user.getRecruteur.id}) }}">Mon profil</a>
+        <a type="button" class="btn register" href="{{ path('app_recruteur_show', {'id': app.user.getRecruteur.id}) }}">Mon profil</a>
     {% endif %}  
     </div>
     {% block body %}

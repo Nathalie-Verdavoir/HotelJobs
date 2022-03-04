@@ -34,12 +34,13 @@
         </tbody>
     </table>
 
-    <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">back to list</a>
+    
     {% if is_granted("ROLE_RECRUTEUR") %}
-        <a type="button" class="btn" href="{{ path('app_recruteur_edit', {'id': recruteur.id}) }}">edit</a>
+        
     {% endif %}
     {% if is_granted("ROLE_CONSULTANT") %}
+        <a type="button" class="btn" href="{{ path('app_recruteur_index') }}">Retour</a>
         <a type="button" class="btn" href="{{ path('app_recruteur_makeActive', {'id': recruteur.id, 'actif': recruteur.actif ? 0 : 1}) }}">{{ recruteur.actif ? "Rendre Inactif" : "Rendre Actif" }}</a>
-    {% endif %}
     {{ include('recruteur/_delete_form.html.twig') }}
+    {% endif %}
 {% endblock %}
