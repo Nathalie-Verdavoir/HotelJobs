@@ -138,7 +138,8 @@ class Annonce
         if(count($postulants) and count($postulants)>0){
             foreach ($postulants as $postulant){
               if($postulant->getCandidat()[0] === $candidat){
-                $isNotAlreadyCandidat= false; break;
+                $isNotAlreadyCandidat= false; 
+                break;
                }
             }
         }
