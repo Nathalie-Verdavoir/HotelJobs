@@ -41,7 +41,7 @@
                         <a type="button" class="btn" href="{{ path('app_annonce_show', {'recruteur': app.user.getRecruteur.id,'annonce': annonce.id}) }}">Voir</a>
                         <a type="button" class="btn" href="{{ path('app_annonce_edit', {'recruteur': app.user.getRecruteur.id,'id': annonce.id}) }}">Modifier</a>
                     {% elseif is_granted("ROLE_CANDIDAT") %}
-                        {% if annonce.checkIfPostulant(annonce,app.user.getCandidat) %}
+                        {% if not annonce.checkIfPostulant(annonce,app.user.getCandidat) %}
                             <a type="button" class="btn" href="{{ path('app_annonce_apply', {'candidat': app.user.getCandidat.id,'id': annonce.id}) }}">Postuler</a>
                         {% else %}
                             Déjà postulé...
