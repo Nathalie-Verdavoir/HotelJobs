@@ -15,7 +15,7 @@ class MailerController extends AbstractController
 {
     #[Route('/email/{annonce}/{postulant}', name: 'app_mail', methods: ['GET','POST'])]
     public function sendEmail(MailerInterface $mailer,Annonce $annonce,Postulant $postulant): Response
-    {dump("https://hoteljobs.herokuapp.com/uploads/article_image/".$postulant->getCandidat()[0]->getCvname());
+    {
         $email = (new Email())
             ->from('brad@sandbox97fca9b4222d469192b1eb1f0ca0556f.mailgun.org')
             ->to('nat.aesh@orange.fr')
