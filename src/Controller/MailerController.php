@@ -25,9 +25,9 @@ class MailerController extends AbstractController
             //->replyTo('fabien@example.com')
             //->priority(Email::PRIORITY_HIGH)
             ->subject('Time for Symfony Mailer!')
-            ->text('Nous avons trouvé un postulant pour votre offre : '.$postulant->getCandidat()[0]->getUserid()->getPrenom().' '.$postulant->getCandidat()[0]->getUserid()->getNom())
-            ->html('<p>See Twig integration for better HTML integration!</p>')
-            ->attach(fopen("/uploads/article_image/julienmichel-621d23bfe1a29.pdf", 'r'))
+            //->text('Nous avons trouvé un postulant pour votre offre : '.$postulant->getCandidat()[0]->getUserid()->getPrenom().' '.$postulant->getCandidat()[0]->getUserid()->getNom())
+            ->html('<p>Nous avons trouvé un postulant pour votre offre : </p><a href="https://hoteljobs.herokuapp.com/uploads/article_image/"'.$postulant->getCandidat()[0]->getCvname().'>'.$postulant->getCandidat()[0]->getUserid()->getPrenom().' '.$postulant->getCandidat()[0]->getUserid()->getNom().'</a>')
+           // ->attachFromPath("https://hoteljobs.herokuapp.com/uploads/article_image/".$postulant->getCandidat()[0]->getCvname())
             ;
 
         $mailer->send($email);
