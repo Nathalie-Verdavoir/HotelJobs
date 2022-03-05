@@ -5,7 +5,7 @@
    
 {% block header %}
     <img class ="logo" src="{{ asset('images/logo.png') }}"/> 
-    <h1 class="title">HotelJobs, bonjour {{ app.user ? app.user :  ''}}!</h1> 
+    <h1 class="title">HotelJobs, Bonjour {{ app.user ? app.user :  ''}}!</h1> 
     <div class="admin-buttons">
     {% if app.user %}
         {% if "ROLE_SUPER_ADMIN" in app.user.roles %} 
