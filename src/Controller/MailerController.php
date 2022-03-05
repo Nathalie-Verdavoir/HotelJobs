@@ -13,7 +13,6 @@ use Symfony\Component\Mime\Email;
 
 class MailerController extends AbstractController
 {
-    #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/email/{annonce}/{postulant}', name: 'app_mail', methods: ['GET','POST'])]
     public function sendEmail(MailerInterface $mailer,Annonce $annonce,Postulant $postulant): Response
     {dump("https://hoteljobs.herokuapp.com/uploads/article_image/".$postulant->getCandidat()[0]->getCvname());
@@ -31,7 +30,7 @@ class MailerController extends AbstractController
             ->attachFromPath("https://hoteljobs.herokuapp.com/uploads/article_image/".$postulant->getCandidat()[0]->getCvname());
 
         $mailer->send($email);
-
+dump('sent');
         return $this->render('annonce/show.html.twig', [
             'annonce' => $annonce,
             'postulant' => $postulant,
