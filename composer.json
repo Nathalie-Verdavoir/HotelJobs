@@ -21,6 +21,7 @@
         "symfony/expression-language": "6.0.*",
         "symfony/flex": "^2",
         "symfony/framework-bundle": "6.0.*",
+        "symfony/mailgun-mailer": "6.0.*",
         "symfony/mime": "6.0.*",
         "symfony/proxy-manager-bridge": "6.0.*",
         "symfony/runtime": "6.0.*",
