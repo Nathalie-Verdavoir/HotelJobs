@@ -28,7 +28,7 @@ class MailerController extends AbstractController
             ->subject('Time for Symfony Mailer!')
             ->text('Nous avons trouvé un postulant pour votre offre : '.$postulant->getCandidat()[0]->getUserid()->getPrenom().' '.$postulant->getCandidat()[0]->getUserid()->getNom())
             ->html('<p>See Twig integration for better HTML integration!</p>')
-            ->attachFromPath($this->getParameter('kernel.project_dir')."../public/uploads/article_image/".$postulant->getCandidat()[0]->getCvname());
+            ->attachFromPath($this->getParameter('kernel.project_dir')."/../public/uploads/article_image/".$postulant->getCandidat()[0]->getCvname());
 
         $mailer->send($email);
 
