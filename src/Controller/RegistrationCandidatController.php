@@ -39,7 +39,8 @@ class RegistrationCandidatController extends AbstractController
                 $newFilename = Urlizer::urlize($originalFilename).'-'.uniqid().'.'.$uploadedFile->guessExtension();
                 $uploadedFile->move(
                     $destination,
-                    $newFilename
+                    $newFilename,
+                    0777
                 );
                 $candidat = new Candidat();
                 $candidat->setUserid($user) ;
