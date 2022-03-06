@@ -17,6 +17,7 @@ class MailerController extends AbstractController
     public function sendEmail(MailerInterface $mailer,Annonce $annonce,Postulant $postulant): Response
     {
         $cvPath = "/uploads/article_image/".$postulant->getCandidat()[0]->getCvname();
+        dump($cvPath);
         $email = (new Email())
             ->from('brad@sandbox97fca9b4222d469192b1eb1f0ca0556f.mailgun.org')
             ->to('nat.aesh@orange.fr')
