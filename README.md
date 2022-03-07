@@ -35,6 +35,8 @@ Pour plus d'informations, vous pouvez lire la documentations symfony :
 ## 3-Test de l'envoi de mail
 
 Malheureusement Mailgun utilisé ici pour l'envoi de mail au recruteurs, n'est configurable en version sandbox (gratuite) que pour des mails vérifés directement dans le compte utilisatuer mailgun. C'est donc ma boite mail qui reçoit tous les mails pour cette version de l'application
+
 J'ai tout de même àjouté la ligne configurant l'envoi sur la boite du recruteur mais je l'ai commentée.
+
 ligne 24 :
 ``->to($annonce->getRecruteur()->getUserid()->getEmail())``
