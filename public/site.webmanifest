@@ -1,0 +1,9 @@
+{
+    "name": "HotelJobs",
+    "short_name": "HJOBS",
+    "start_url": "./?utm_source=web_app_manifest",
+    "display": "standalone",
+    "dir": "rtl",
+    "lang": "fr",
+    "description": "Une appli qui met en contact!"
+  }
