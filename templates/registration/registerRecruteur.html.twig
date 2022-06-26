@@ -6,12 +6,7 @@
     <h1>Vous souhaitez poster vos annonces ? Créez votre compte!</h1>
 
     {{ form_start(registrationRecruteurForm) }}
-        {{ form_row(registrationRecruteurForm.email) }}
-        {{ form_row(registrationRecruteurForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationRecruteurForm.agreeTerms) }}
-
-        <button class="btn" type="submit" class="btn">Register</button>
+        <button class="btn" type="submit" class="btn">Register</button>       
+        {{ form_row(registrationRecruteurForm.recruteur, { 'label': '' }) }}     
     {{ form_end(registrationRecruteurForm) }}
 {% endblock %}

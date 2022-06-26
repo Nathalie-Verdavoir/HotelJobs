@@ -5,13 +5,8 @@
 {% block body %}
     <h1>Vous souhaitez postuler à nos offres ? Créez votre compte!</h1>
 
-    {{ form_start(registrationCandidatForm) }}
-        {{ form_row(registrationCandidatForm.email) }}
-        {{ form_row(registrationCandidatForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationCandidatForm.agreeTerms) }}
-
-        <button class="btn" type="submit" class="btn">Register</button>
+    {{ form_start(registrationCandidatForm) }} 
+    <button class="btn" type="submit" class="btn">Register</button>
+        {{ form_row(registrationCandidatForm.candidat) }}    
     {{ form_end(registrationCandidatForm) }}
 {% endblock %}
