@@ -1,5 +1,7 @@
 # HotelJobs 
 
+[![SymfonyInsight](https://insight.symfony.com/projects/70a2d0fa-7530-44dd-b08c-ee011792d0e5/big.svg)](https://insight.symfony.com/projects/70a2d0fa-7530-44dd-b08c-ee011792d0e5)
+
 [Accéder au projet en ligne](https://hoteljobs.herokuapp.com/)
 
 ## 1-Un projet symfony
