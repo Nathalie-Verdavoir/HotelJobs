@@ -68,7 +68,7 @@ class PostulantController extends AbstractController
         $annonce = $postulant->getAnnonce()[0];
         $postulant->setValide($valid);
         $postulantRepository->add($postulant);
-        if($valid==true){
+        if($valid===true){
             return $this->redirectToRoute('app_mail', [
                 'annonce' => $annonce->getId(),
                 'postulant' => $postulant->getId(),
