@@ -131,7 +131,7 @@ class Annonce
         return $this;
     }
 
-    public function checkIfPostulant(Annonce $annonce,Candidat $candidat)
+    public function checkIfPostulant(Annonce $annonce,Candidat $candidat): bool
     {
         $isNotAlreadyCandidat = false;
         $postulants = $annonce->getPostulants();
