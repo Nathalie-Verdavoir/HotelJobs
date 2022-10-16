@@ -49,7 +49,7 @@ class CandidatRepository extends ServiceEntityRepository
     * @return Candidat[] Returns an array of Candidat objects
     */
     
-    public function findActif($value)
+    public function findActif(bool $value)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.actif = :val')

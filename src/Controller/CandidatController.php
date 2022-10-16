@@ -25,7 +25,7 @@ class CandidatController extends AbstractController
 
     #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/actif/{actif}', name: 'app_candidat_index_valid', methods: ['GET'])]
-    public function indexNoValid(CandidatRepository $candidatRepository,$actif): Response
+    public function indexNoValid(CandidatRepository $candidatRepository,bool $actif): Response
     {
         return $this->render('candidat/index.html.twig', [
             'candidats' => $candidatRepository->findActif($actif),
@@ -78,7 +78,7 @@ class CandidatController extends AbstractController
 */
     #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeActive/{actif}', name: 'app_candidat_makeActive', methods: ['GET', 'POST'])]
-    public function makeActive(Candidat $candidat, $actif, CandidatRepository $candidatRepository, EntityManagerInterface $entityManager): Response
+    public function makeActive(Candidat $candidat,bool $actif, CandidatRepository $candidatRepository, EntityManagerInterface $entityManager): Response
     {   
         $user=$candidat->getUserid();
         $user->setRoles(["ROLE_CANDIDAT"]);

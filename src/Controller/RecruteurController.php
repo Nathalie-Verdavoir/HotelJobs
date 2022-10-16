@@ -25,7 +25,7 @@ class RecruteurController extends AbstractController
 
     #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/actif/{actif}', name: 'app_recruteur_index_valid', methods: ['GET'])]
-    public function indexNoValid(RecruteurRepository $recruteurRepository,$actif): Response
+    public function indexNoValid(RecruteurRepository $recruteurRepository,bool $actif): Response
     {
         return $this->render('recruteur/index.html.twig', [
             'recruteurs' => $recruteurRepository->findActif($actif),
@@ -79,7 +79,7 @@ class RecruteurController extends AbstractController
 */
     #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeActive/{actif}', name: 'app_recruteur_makeActive', methods: ['GET', 'POST'])]
-    public function makeActive(Recruteur $recruteur, $actif, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
+    public function makeActive(Recruteur $recruteur,bool $actif, RecruteurRepository $recruteurRepository, EntityManagerInterface $entityManager): Response
     {   
         $user=$recruteur->getUserid();
         $user->setRoles(["ROLE_RECRUTEUR"]);

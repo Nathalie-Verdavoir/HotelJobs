@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Annonce;
+use App\Entity\Recruteur;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
 use Doctrine\ORM\ORMException;
@@ -49,7 +50,7 @@ class AnnonceRepository extends ServiceEntityRepository
      * @return Annonce[] Returns an array of Annonce objects
     */
 
-    public function findByRecruteur($value)
+    public function findByRecruteur(Recruteur $value)
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.recruteur = :val')
@@ -64,7 +65,7 @@ class AnnonceRepository extends ServiceEntityRepository
     * @return Annonce[] Returns an array of Annonce objects
     */
     
-    public function findByVisible($value)
+    public function findByVisible(bool $value)
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.visible = :val')

@@ -49,7 +49,7 @@ class RecruteurRepository extends ServiceEntityRepository
     * @return Recruteur[] Returns an array of Recruteur objects
     */
     
-    public function findActif($value)
+    public function findActif(bool $value)
     {
         return $this->createQueryBuilder('r')
             ->andWhere('r.actif = :val')

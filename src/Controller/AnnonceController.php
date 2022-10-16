@@ -121,7 +121,7 @@ class AnnonceController extends AbstractController
 
     #[Security("is_granted( 'ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/makeVisible/{visible}', name: 'app_annonce_makeVisible', methods: ['GET', 'POST'])]
-    public function makeActive(Annonce $annonce, $visible, AnnonceRepository $annonceRepository): Response
+    public function makeActive(Annonce $annonce, bool $visible, AnnonceRepository $annonceRepository): Response
     {
         $annonce->setVisible($visible);
         $annonceRepository->add($annonce);

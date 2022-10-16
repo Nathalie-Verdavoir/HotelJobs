@@ -62,7 +62,7 @@ class PostulantController extends AbstractController
 */
     #[Security("is_granted('ROLE_CONSULTANT')", statusCode: 404)]
     #[Route('/{id}/{valid}', name: 'app_postulant_validation', methods: ['GET'])]
-    public function makeValid(Postulant $postulant,$valid,PostulantRepository $postulantRepository): Response
+    public function makeValid(Postulant $postulant, bool $valid,PostulantRepository $postulantRepository): Response
     {
         /** @var Annonce $annonce */
         $annonce = $postulant->getAnnonce()[0];
